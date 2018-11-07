@@ -2,7 +2,6 @@ import React from "react";
 import ReactStars from "react-stars";
 
 export default function Store(props) {
-  console.log(props);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -11,23 +10,39 @@ export default function Store(props) {
           alt={props.info.name}
           className="col-md-auto picture"
         />
-        <div className="col">
-          <div className="row justify-content-md-center">
-            <div className="col-6">{props.info.name}</div>
+        <div className="col info-border">
+          <div className="row md-center information-divider">
+            <div className="col-6">
+              <a href={props.info.url} className="title">
+                {props.info.name}
+              </a>
+            </div>
+            <div className="col">
+              <ReactStars
+                value={props.info.rating}
+                color1="gray"
+                color2="yellow"
+                count={5}
+                edit={false}
+              />
+            </div>
+            <div className="col">{props.info.price}</div>
+            <div className="col">
+              {props.info.is_closed ? (
+                <content className="closed">Closed</content>
+              ) : (
+                <content className="open">Open</content>
+              )}
+            </div>
+          </div>
+          <div className="row md-center information-divider">
             <div className="col-md-auto">
               {props.info.location.display_address.join(", ")}
             </div>
+          </div>
+          <div className="row md-center information-divider">
             <div className="col col-lg-2">{props.info.display_phone}</div>
           </div>
-          <h3>{props.info.is_closed}</h3>
-          <ReactStars
-            value={props.info.rating}
-            color1="gray"
-            color2="yellow"
-            count={5}
-          />
-          <h3>{props.info.price}</h3>
-          <a href={props.info.url}>Yelp Page</a>
         </div>
       </div>
     </div>

@@ -5,16 +5,17 @@ const router = express.Router();
 const secrets = require("../../config/secrets");
 
 const apiKey = secrets.apiKey;
-const searchRequest = {
-  term: "Four Barrel Coffee",
-  location: "san francisco, ca"
-};
+// const searchRequest = {
+//   term: "Four Barrel Coffee",
+//   location: "san francisco, ca"
+// };
 
 const client = yelp.client(apiKey);
 
-router.get("/", (req, res) => res.json({ test: "test" }));
-
-router.get("/test", (req, res) => {
+router.get("/", (req, res) => {
+  const { term, latitude, longitude } = req.query;
+  console.log(term, latitude, longitude);
+  const searchRequest = { term, latitude, longitude };
   client
     .search(searchRequest)
     .then(response => {

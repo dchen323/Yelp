@@ -1,3 +1,49 @@
+html,
+body {
+  background: #fafafa;
+}
+
 .picture {
-  height: 50vh;
+  height: 39vh;
+}
+
+.App-header {
+  background: #be3128;
+  color: white;
+  text-align: center;
+}
+
+.information-divider {
+  margin: 5vh;
+  font-size: 1.5vw;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 2.5vw;
+}
+
+.info-border {
+  border: 2px solid black;
+}
+
+.closed,
+.open {
+  height: 3vh;
+  width: 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+}
+
+.open {
+  background: lightgreen;
+  border: 2px solid darkgreen;
+}
+
+.closed {
+  background: lightcoral;
+  border: 2px solid darkred;
 }
