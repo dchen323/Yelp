@@ -6,6 +6,7 @@ body {
 .picture {
   height: 39vh;
   object-fit: cover;
+  max-width: 17vw;
 }
 
 .App-header {

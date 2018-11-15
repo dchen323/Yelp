@@ -14,7 +14,8 @@ class App extends Component {
       latitude: 0,
       longitude: 0,
       results: {},
-      errors: ""
+      errors: "",
+      zoom: 13
     };
     this.count = 0;
     this.search = this.search.bind(this);
@@ -48,7 +49,7 @@ class App extends Component {
       })
       .then(res => {
         const results = JSON.parse(res.data.response).businesses.filter(
-          business => business.distance <= 1900
+          business => business.distance <= 2400
         );
         if (results.length === 0) {
           this.setState({
@@ -57,7 +58,8 @@ class App extends Component {
           });
         } else {
           const length = Math.floor(Math.random() * results.length);
-          this.setState({ results: results[length], errors: "" });
+          const zoom = results[length].distance > 1900 ? 12 : 13;
+          this.setState({ results: results[length], errors: "", zoom });
         }
       });
 
@@ -130,6 +132,7 @@ class App extends Component {
           lng={this.state.longitude}
           coordinates={coordinates}
           name={name}
+          zoom={this.state.zoom}
         />
       </div>
     );

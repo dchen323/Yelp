@@ -2,6 +2,12 @@ import React from "react";
 import ReactStars from "react-stars";
 
 export default function Store(props) {
+  const list = props.info.transactions.map((transaction, idx) => (
+    <div className="col">
+      <div key={idx}>{transaction[0].toUpperCase() + transaction.slice(1)}</div>
+    </div>
+  ));
+  console.log(list);
   return (
     <div className="container-fluid store">
       <div className="row">
@@ -29,12 +35,14 @@ export default function Store(props) {
             <div className="col">{props.info.price}</div>
           </div>
           <div className="row md-center information-divider">
-            <div className="col">
+            <div className="col-6">
               {props.info.location.display_address.join(", ")}
             </div>
+            <div className="col">Reviews: {props.info.review_count}</div>
           </div>
           <div className="row md-center information-divider">
-            <div className="col col">{props.info.display_phone}</div>
+            <div className="col">{props.info.display_phone}</div>
+            {list}
           </div>
         </div>
       </div>
