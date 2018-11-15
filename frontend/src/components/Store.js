@@ -3,7 +3,7 @@ import ReactStars from "react-stars";
 
 export default function Store(props) {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid store">
       <div className="row">
         <img
           src={props.info.image_url}
@@ -27,21 +27,14 @@ export default function Store(props) {
               />
             </div>
             <div className="col">{props.info.price}</div>
-            <div className="col">
-              {props.info.is_closed ? (
-                <content className="closed">Closed</content>
-              ) : (
-                <content className="open">Open</content>
-              )}
-            </div>
           </div>
           <div className="row md-center information-divider">
-            <div className="col-md-auto">
+            <div className="col">
               {props.info.location.display_address.join(", ")}
             </div>
           </div>
           <div className="row md-center information-divider">
-            <div className="col col-lg-2">{props.info.display_phone}</div>
+            <div className="col col">{props.info.display_phone}</div>
           </div>
         </div>
       </div>

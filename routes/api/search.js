@@ -13,9 +13,15 @@ const apiKey = secrets.apiKey;
 const client = yelp.client(apiKey);
 
 router.get("/", (req, res) => {
-  const { term, latitude, longitude } = req.query;
-  console.log(term, latitude, longitude);
-  const searchRequest = { term, latitude, longitude };
+  const { term, latitude, longitude, radius, open_now } = req.query;
+  const searchRequest = {
+    term,
+    latitude,
+    longitude,
+    radius,
+    open_now
+  };
+
   client
     .search(searchRequest)
     .then(response => {

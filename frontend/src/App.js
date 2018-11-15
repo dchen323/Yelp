@@ -5,6 +5,7 @@ import "./App.css";
 import Store from "./components/Store";
 import SearchBar from "./components/SearchBar";
 import NavBar from "./components/NavBar";
+import GoogleMap from "./components/GoogleMap";
 
 class App extends Component {
   constructor() {
@@ -12,9 +13,10 @@ class App extends Component {
     this.state = {
       latitude: 0,
       longitude: 0,
-      results: {}
+      results: {},
+      errors: ""
     };
-
+    this.count = 0;
     this.search = this.search.bind(this);
   }
 
@@ -32,19 +34,31 @@ class App extends Component {
   }
 
   search(query) {
+    if (query.length === 0) {
+      return;
+    }
     axios
       .get("/api/search/", {
         params: {
           term: query,
           latitude: this.state.latitude,
-          longitude: this.state.longitude
+          longitude: this.state.longitude,
+          open_now: true
         }
       })
       .then(res => {
-        const results = JSON.parse(res.data.response).businesses;
-        const length = Math.floor(Math.random() * results.length);
-        console.log(results[0]);
-        this.setState({ results: results[0] });
+        const results = JSON.parse(res.data.response).businesses.filter(
+          business => business.distance <= 1900
+        );
+        if (results.length === 0) {
+          this.setState({
+            errors:
+              "Sorry could not find any results try a broader search term!"
+          });
+        } else {
+          const length = Math.floor(Math.random() * results.length);
+          this.setState({ results: results[length], errors: "" });
+        }
       });
 
     // const results = {
@@ -89,20 +103,34 @@ class App extends Component {
   }
 
   render() {
-    let results;
+    let results, errors, coordinates, name;
     if (Object.keys(this.state.results).length) {
       results = <Store info={this.state.results} />;
+      coordinates = this.state.results.coordinates;
+      name = this.state.results.name;
     } else {
       results = <div />;
     }
+
+    if (this.state.errors) {
+      errors = <span>{this.state.errors}</span>;
+    }
+
     return (
       <div className="App">
         <NavBar
-          title="Yelp Fusion"
-          description="Let us choose a place for you to go!"
+          title="Food Picker"
+          description="Can't decide where to go? Let us choose a place nearby for you to go!"
         />
         <SearchBar placeholder="Brunch" search={this.search} />
+        {errors}
         {results}
+        <GoogleMap
+          lat={this.state.latitude}
+          lng={this.state.longitude}
+          coordinates={coordinates}
+          name={name}
+        />
       </div>
     );
   }
