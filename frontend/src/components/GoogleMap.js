@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 
-const mapStyles = {
-  width: "100%",
-  height: "33%",
-  border: "3px solid black"
-};
-
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -40,35 +34,37 @@ export class MapContainer extends Component {
       markerLat = this.props.coordinates.latitude;
     }
     return (
-      <Map
-        google={this.props.google}
-        zoom={this.props.zoom}
-        style={mapStyles}
-        center={{
-          lat,
-          lng
-        }}
-      >
-        <Marker
-          position={{ lat, lng }}
-          name={"Current Location"}
-          onClick={this.onMarkerClick}
-        />
-        <Marker
-          position={{ lat: markerLat, lng: markerLng }}
-          name={this.props.name}
-          onClick={this.onMarkerClick}
-        />
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
+      <div className="map-container">
+        <Map
+          google={this.props.google}
+          zoom={this.props.zoom}
+          center={{
+            lat,
+            lng
+          }}
+          className="map"
         >
-          <div>
-            <h5>{this.state.selectedPlace.name}</h5>
-          </div>
-        </InfoWindow>
-      </Map>
+          <Marker
+            position={{ lat, lng }}
+            name={"Current Location"}
+            onClick={this.onMarkerClick}
+          />
+          <Marker
+            position={{ lat: markerLat, lng: markerLng }}
+            name={this.props.name}
+            onClick={this.onMarkerClick}
+          />
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            onClose={this.onClose}
+          >
+            <div>
+              <h5>{this.state.selectedPlace.name}</h5>
+            </div>
+          </InfoWindow>
+        </Map>
+      </div>
     );
   }
 }

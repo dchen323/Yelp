@@ -8,7 +8,6 @@ const mapStyles = {
 
 export class MapContainer extends Component {
   render() {
-    console.log(this.props.lat, this.props.lng);
     const { lat, lng } = this.props;
     return (
       <Map

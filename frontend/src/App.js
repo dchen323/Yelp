@@ -15,10 +15,11 @@ class App extends Component {
       longitude: 0,
       results: {},
       errors: "",
-      zoom: 13
+      zoom: 13,
+      count: 0
     };
-    this.count = 0;
     this.search = this.search.bind(this);
+    this.getNext = this.getNext.bind(this);
   }
 
   componentDidMount() {
@@ -57,9 +58,8 @@ class App extends Component {
               "Sorry could not find any results try a broader search term!"
           });
         } else {
-          const length = Math.floor(Math.random() * results.length);
-          const zoom = results[length].distance > 1900 ? 12 : 13;
-          this.setState({ results: results[length], errors: "", zoom });
+          const zoom = results[0].distance > 1800 ? 12 : 13;
+          this.setState({ results: results, errors: "", zoom });
         }
       });
 
@@ -104,12 +104,25 @@ class App extends Component {
     // this.setState({ results });
   }
 
+  getNext() {
+    this.setState(prevState => {
+      const length = Object.keys(this.state.results).length;
+      const count = prevState.count + 1;
+      if (count === length) {
+        return { count: 0 };
+      } else {
+        return { count };
+      }
+    });
+  }
+
   render() {
     let results, errors, coordinates, name;
     if (Object.keys(this.state.results).length) {
-      results = <Store info={this.state.results} />;
-      coordinates = this.state.results.coordinates;
-      name = this.state.results.name;
+      let result = this.state.results[this.state.count];
+      results = <Store info={result} getNext={this.getNext} />;
+      coordinates = result.coordinates;
+      name = result.name;
     } else {
       results = <div />;
     }

@@ -54,3 +54,17 @@ body {
 .store {
   margin-bottom: 3vh;
 }
+
+.next-result {
+  margin: 0 5vw;
+}
+
+.map-container > div {
+  max-height: 33%;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: 3px solid black;
+}

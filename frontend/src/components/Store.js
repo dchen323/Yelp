@@ -7,7 +7,6 @@ export default function Store(props) {
       <div key={idx}>{transaction[0].toUpperCase() + transaction.slice(1)}</div>
     </div>
   ));
-  console.log(list);
   return (
     <div className="container-fluid store">
       <div className="row">
@@ -39,6 +38,13 @@ export default function Store(props) {
               {props.info.location.display_address.join(", ")}
             </div>
             <div className="col">Reviews: {props.info.review_count}</div>
+            <button
+              type="button"
+              className="col btn btn-danger btn-small next-result"
+              onClick={props.getNext}
+            >
+              Next Result
+            </button>
           </div>
           <div className="row md-center information-divider">
             <div className="col">{props.info.display_phone}</div>
