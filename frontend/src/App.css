@@ -24,7 +24,7 @@ body {
 }
 
 .title {
-  font-size: 2.5vw;
+  font-size: 2vw;
 }
 
 .info-border {
@@ -67,4 +67,9 @@ body {
   width: 100%;
   height: 100%;
   border: 3px solid black;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
 }

@@ -14,6 +14,18 @@ export class MapContainer extends Component {
     this.onClose = this.onClose.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.coordinates) {
+      const { latitude, longitude } = prevProps.coordinates;
+      const lat = this.props.coordinates.latitude;
+      const lng = this.props.coordinates.longitude;
+
+      if (lat !== latitude || longitude !== lng) {
+        this.onClose();
+      }
+    }
+  }
+
   onMarkerClick(props, marker, e) {
     this.setState({
       selectedPlace: props,

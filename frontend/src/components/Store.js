@@ -3,8 +3,8 @@ import ReactStars from "react-stars";
 
 export default function Store(props) {
   const list = props.info.transactions.map((transaction, idx) => (
-    <div className="col">
-      <div key={idx}>{transaction[0].toUpperCase() + transaction.slice(1)}</div>
+    <div className="col" key={idx}>
+      <div>{transaction[0].toUpperCase() + transaction.slice(1)}</div>
     </div>
   ));
   return (

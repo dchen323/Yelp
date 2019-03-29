@@ -58,61 +58,18 @@ class App extends Component {
               "Sorry could not find any results try a broader search term!"
           });
         } else {
-          const zoom = results[0].distance > 1800 ? 12 : 13;
+          const zoom = results[0].distance > 1600 ? 12 : 13;
           this.setState({ results: results, errors: "", zoom });
         }
       });
-
-    // const results = {
-    //   id: "E8RJkjfdcwgtyoPMjQ_Olg",
-    //   alias: "four-barrel-coffee-san-francisco",
-    //   name: "Four Barrel Coffee",
-    //   image_url:
-    //     "https://s3-media3.fl.yelpcdn.com/bphoto/E17wpmhnO4bwfT_MVgaIJw/o.jpg",
-    //   is_closed: false,
-    //   url:
-    //     "https://www.yelp.com/biz/four-barrel-coffee-san-francisco?adjust_creative=g-U1FI1GeW81HT4B_BU1Rg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=g-U1FI1GeW81HT4B_BU1Rg",
-    //   review_count: 2025,
-    //   categories: [
-    //     {
-    //       alias: "coffee",
-    //       title: "Coffee & Tea"
-    //     }
-    //   ],
-    //   rating: 4,
-    //   coordinates: {
-    //     latitude: 37.7670169511878,
-    //     longitude: -122.42184275
-    //   },
-    //   transactions: [],
-    //   price: "$",
-    //   location: {
-    //     address1: "375 Valencia St",
-    //     address2: "",
-    //     address3: "",
-    //     city: "San Francisco",
-    //     zip_code: "94103",
-    //     country: "US",
-    //     state: "CA",
-    //     display_address: ["375 Valencia St", "San Francisco, CA 94103"]
-    //   },
-    //   phone: "+14152520800",
-    //   display_phone: "(415) 252-0800",
-    //   distance: 1452.8696502343696
-    // };
-
-    // this.setState({ results });
   }
 
   getNext() {
     this.setState(prevState => {
       const length = Object.keys(this.state.results).length;
-      const count = prevState.count + 1;
-      if (count === length) {
-        return { count: 0 };
-      } else {
-        return { count };
-      }
+      const count = prevState.count + 1 === length ? 0 : prevState.count + 1;
+      const zoom = this.state.results[count].distance > 1600 ? 12 : 13;
+      return { count, zoom };
     });
   }
 
